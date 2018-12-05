@@ -10,7 +10,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Some other shit
         Log.d("Tag", "msg")
+        // other shit
     }
 
 }
