@@ -161,6 +161,7 @@
                     android:layout_marginRight="10dp"/>
 
             <TextView
+                    android:id="@+id/tv_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minWidth="80dp"
@@ -174,7 +175,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/bu_restart"
                 android:layout_marginTop="30dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:onClick="onResetButtonClick"/>
     </LinearLayout>
 
 </LinearLayout>
