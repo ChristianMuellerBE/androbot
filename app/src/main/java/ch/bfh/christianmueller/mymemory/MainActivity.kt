@@ -2,6 +2,7 @@ package ch.bfh.christianmueller.mymemory
 
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import kotlin.random.Random
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private var second: String? = null
     private var score: Int = 0
     private var matchesToFinish: Int = 0
+    private var foundMatches: Int = 0
 
 
     private lateinit var textView: TextView
@@ -45,8 +48,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun shuffleCardsAndInitGame() {
         val ids = (0..(cardsOnBoardGame.size - 1)).toMutableList()
-        val possibleMatches = cardsOnBoardGame.size/ 2
-        for (i in 0 until possibleMatches) {
+        matchesToFinish = cardsOnBoardGame.size / 2
+        for (i in 0 until matchesToFinish) {
             val emoji = pictures.removeAt(Random.nextInt(pictures.size))
             picOnCard(ids, emoji)
             picOnCard(ids, emoji)
@@ -88,11 +91,28 @@ class MainActivity : AppCompatActivity() {
                 resetCurrentCards()
                 disableMatchedCards()
                 Toast.makeText(this, "It's a Match", Toast.LENGTH_SHORT).show()
+                foundMatches++
+                if (allMatchesFound()) {
+                    showWinDialog()
+                }
             }
         } else if (nextClickAfterMissMatch()) {
             turnCardsBack()
         }
     }
+
+    private fun showWinDialog() {
+        val dialog = AlertDialog.Builder(this)
+        dialog.setTitle(R.string.alert_finished)
+            .setMessage(R.string.alert_text_finished)
+            .setPositiveButton("Ok") { _, _ -> restartAction() }.show()
+    }
+
+    private fun restartAction() {
+        restartGame()
+    }
+
+    private fun allMatchesFound() = matchesToFinish == foundMatches
 
     private fun cardsMatch() = first == second
 
@@ -151,14 +171,18 @@ class MainActivity : AppCompatActivity() {
 
     fun onResetButtonClick(view: View) {
         if (view is Button) {
-            score = 0
-            updateScore(score)
-            clearAllListsAndStates()
-            pictures = mutableListOf("🐶", "🐱", "🐻", "🐨", "🐷", "🐸", "🐙")
-            initGame(null)
-        }else{
-            Log.wtf("MainActivity.onResetButtonClick","onResetButtonClick was not on a Button")
+            restartGame()
+        } else {
+            Log.wtf("MainActivity.onResetButtonClick", "onResetButtonClick was not on a Button")
         }
+    }
+
+    private fun restartGame() {
+        score = 0
+        updateScore(score)
+        clearAllListsAndStates()
+        pictures = mutableListOf("🐶", "🐱", "🐻", "🐨", "🐷", "🐸", "🐙")
+        initGame(null)
     }
 
     private fun clearAllListsAndStates() {
