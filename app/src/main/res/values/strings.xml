@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MyMemory</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">MyMemory</string>
     <string name="bu_restart">Restart</string>
-    <string name="tx_score">Score:</string>
+    <string name="tx_score">Clicks needed:</string>
 </resources>
