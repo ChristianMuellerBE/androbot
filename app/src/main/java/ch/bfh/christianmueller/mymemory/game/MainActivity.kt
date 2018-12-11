@@ -1,5 +1,7 @@
-package ch.bfh.christianmueller.mymemory
+package ch.bfh.christianmueller.mymemory.game
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -10,6 +12,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import ch.bfh.christianmueller.mymemory.R
 import kotlin.random.Random
 
 
@@ -32,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_game)
         textView = findViewById(R.id.tv_score)
         restoreScore(savedInstanceState)
         initGame(savedInstanceState)
@@ -195,5 +198,9 @@ class MainActivity : AppCompatActivity() {
         first = null
         second = null
         currentCards.clear()
+    }
+
+    companion object {
+        fun getMainActivityIntent(ctx: Context) = Intent(ctx, MainActivity::class.java)
     }
 }
