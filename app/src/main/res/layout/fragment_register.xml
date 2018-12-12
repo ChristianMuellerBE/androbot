@@ -11,6 +11,8 @@
             android:id="@+id/et_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:inputType="textPersonName"
             android:hint="@string/register_hint_username"
             app:layout_constraintVertical_bias="0.3"
             app:layout_constraintVertical_chainStyle="packed"
@@ -23,6 +25,8 @@
             android:id="@+id/et_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:inputType="textPassword"
             android:hint="@string/register_hint_password"
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintRight_toRightOf="parent"
@@ -34,6 +38,8 @@
             android:id="@+id/et_password_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:inputType="textPassword"
             android:hint="@string/register_hint_password_confirm"
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintRight_toRightOf="parent"
@@ -41,4 +47,12 @@
             app:layout_constraintTop_toBottomOf="@id/et_password"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <Button
+            android:id="@+id/bu_lazy_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bu_lazy_register"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="60dp"/>
 </android.support.constraint.ConstraintLayout>
