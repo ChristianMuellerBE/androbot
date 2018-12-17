@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import ch.bfh.christianmueller.mymemory.R
 import ch.bfh.christianmueller.mymemory.StartActivityActionInterface
+import java.lang.IllegalStateException
 import java.lang.RuntimeException
 
 class OnBoardingFragment : Fragment() {
@@ -20,7 +21,7 @@ class OnBoardingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_onboarding, container, false)
-        callback = requireContext() as StartActivityActionInterface ?: throw RuntimeException("context is not StartActivityActionInterface")
+        callback = requireContext() as? StartActivityActionInterface ?: throw IllegalStateException("context is not StartActivityActionInterface")
         setupButtons(view)
         return view
     }

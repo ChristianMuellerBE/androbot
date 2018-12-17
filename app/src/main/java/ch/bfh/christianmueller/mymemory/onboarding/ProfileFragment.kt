@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.ImageView
 import ch.bfh.christianmueller.mymemory.R
 import ch.bfh.christianmueller.mymemory.StartActivityActionInterface
+import java.lang.IllegalStateException
 
 class ProfileFragment : Fragment() {
 
@@ -24,7 +25,7 @@ class ProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        callback = requireContext() as StartActivityActionInterface ?: throw (RuntimeException("shit happends"))
+        callback = requireContext() as? StartActivityActionInterface ?: throw IllegalStateException("shit happends")
         photoButton = view.findViewById(R.id.bu_take_picture)
         photoButton.setOnClickListener { takeAPicture() }
         mImageView = view.findViewById(R.id.iv_profile_picture)

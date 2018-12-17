@@ -6,6 +6,8 @@ interface StartActivityActionInterface {
 
     fun registerButtonClicked()
 
+    fun agbAccepted()
+
     fun finishedRegisterMenuClicked()
 
     fun finishedProfileMenuClicked()

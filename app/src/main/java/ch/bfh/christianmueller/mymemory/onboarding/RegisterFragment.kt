@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import ch.bfh.christianmueller.mymemory.R
 import ch.bfh.christianmueller.mymemory.StartActivityActionInterface
+import java.lang.IllegalStateException
 
 class RegisterFragment : Fragment() {
 
@@ -18,7 +19,7 @@ class RegisterFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_register, container, false)
-        callback = requireContext() as StartActivityActionInterface ?: throw (RuntimeException("shit happends"))
+        callback = requireContext() as? StartActivityActionInterface ?: throw IllegalStateException("shit happends")
         lazyButton = view.findViewById(R.id.bu_lazy_register)
         lazyButton.setOnClickListener { insertDefaultUserInformantion() }
         userNameEditText = view.findViewById(R.id.et_username)
