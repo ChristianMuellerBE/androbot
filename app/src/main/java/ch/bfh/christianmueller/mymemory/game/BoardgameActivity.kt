@@ -17,7 +17,9 @@ class BoardgameActivity : AppCompatActivity() {
         navigation = findViewById(R.id.bottom_nav)
         navigation.setOnNavigationItemSelectedListener { clickedMenuItem -> selectMenuItem(clickedMenuItem) }
 
-        startMemoryGame()
+        if (savedInstanceState == null) {
+            startMemoryGame()
+        }
     }
 
     private fun selectMenuItem(clickedMenuItem: MenuItem): Boolean {
