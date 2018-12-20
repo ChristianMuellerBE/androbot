@@ -1,11 +1,13 @@
 package ch.bfh.christianmueller.mymemory.onboarding
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import ch.bfh.christianmueller.mymemory.R
+import ch.bfh.christianmueller.mymemory.StartActivity
 import ch.bfh.christianmueller.mymemory.StartActivityActionInterface
 import java.lang.IllegalStateException
 
@@ -42,10 +44,20 @@ class RegisterFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (userInputIsValid()) {
+            saveRegistration()
             callback.finishedRegisterMenuClicked()
             return true
         } else {
             return false
+        }
+    }
+
+    private fun saveRegistration() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putString(StartActivity.USER_NAME_PREF_TAG, userNameEditText.editableText.toString().trim())
+            putString(StartActivity.PASSWORD_PREF_TAG, passwordEditText.editableText.toString())
+            commit()
         }
     }
 

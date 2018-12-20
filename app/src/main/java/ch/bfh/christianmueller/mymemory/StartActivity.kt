@@ -1,5 +1,6 @@
 package ch.bfh.christianmueller.mymemory
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -23,7 +24,7 @@ class StartActivity : AppCompatActivity(), StartActivityActionInterface {
     }
 
     override fun loggingButtonClicked() {
-        Toast.makeText(this, "Not yet implemented!!", Toast.LENGTH_SHORT).show()
+        startMemoryGame()
     }
 
     override fun registerButtonClicked() {
@@ -46,6 +47,10 @@ class StartActivity : AppCompatActivity(), StartActivityActionInterface {
     }
 
     override fun finishedProfileMenuClicked() {
+        startMemoryGame()
+    }
+
+    private fun startMemoryGame() {
         startActivity(BoardgameActivity.getBoardGameActivityIntent(this))
         supportFragmentManager.beginTransaction()
             .replace(R.id.fl_start_activity, OnBoardingFragment())
@@ -53,7 +58,6 @@ class StartActivity : AppCompatActivity(), StartActivityActionInterface {
     }
 
     companion object {
-        const val PROFILE_PICTURE_PREF_TAG: String = "profilePicture_pref"
         const val USER_NAME_PREF_TAG: String = "userName_pref"
         const val PASSWORD_PREF_TAG: String = "password_pref"
     }
