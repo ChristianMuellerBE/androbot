@@ -3,7 +3,7 @@ package ch.bfh.christianmueller.mymemory
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import ch.bfh.christianmueller.mymemory.game.MainActivity
+import ch.bfh.christianmueller.mymemory.game.BoardgameActivity
 import ch.bfh.christianmueller.mymemory.onboarding.AGBFragment
 import ch.bfh.christianmueller.mymemory.onboarding.OnBoardingFragment
 import ch.bfh.christianmueller.mymemory.onboarding.ProfileFragment
@@ -46,7 +46,7 @@ class StartActivity : AppCompatActivity(), StartActivityActionInterface {
     }
 
     override fun finishedProfileMenuClicked() {
-        startActivity(MainActivity.getMainActivityIntent(this))
+        startActivity(BoardgameActivity.getBoardGameActivityIntent(this))
         supportFragmentManager.beginTransaction()
             .replace(R.id.fl_start_activity, OnBoardingFragment())
             .commit()

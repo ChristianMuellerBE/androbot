@@ -1,13 +1,14 @@
 package ch.bfh.christianmueller.mymemory.game
 
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -16,7 +17,7 @@ import ch.bfh.christianmueller.mymemory.R
 import kotlin.random.Random
 
 
-class MainActivity : AppCompatActivity() {
+class MemoryGameFragment : Fragment() {
 
     private val SCORE_TAG: String = "scoreTag"
     private var pictures = mutableListOf("🐶", "🐱", "🐻", "🐨", "🐷", "🐸", "🐙")
@@ -32,18 +33,22 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var textView: TextView
+    private lateinit var bordGame: LinearLayout
+    private lateinit var restartButton: Button
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
-        textView = findViewById(R.id.tv_score)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.activity_game, container, false)
+        textView = view.findViewById(R.id.tv_score)
+        bordGame = view.findViewById(R.id.ll_game_bord)
+        restartButton = view.findViewById(R.id.bu_restart_game)
+        restartButton.setOnClickListener { restartGame() }
         restoreScore(savedInstanceState)
         initGame(savedInstanceState)
+        return view
     }
 
     private fun initGame(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            val bordGame = findViewById<LinearLayout>(R.id.ll_game_bord)
             findCardsOnBoardGame(bordGame)
             shuffleCardsAndInitGame()
         }
@@ -93,7 +98,7 @@ class MainActivity : AppCompatActivity() {
             if (cardsMatch()) {
                 resetCurrentCards()
                 disableMatchedCards()
-                Toast.makeText(this, "It's a Match", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "It's a Match", Toast.LENGTH_SHORT).show()
                 foundMatches++
                 if (allMatchesFound()) {
                     showWinDialog()
@@ -105,7 +110,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showWinDialog() {
-        val dialog = AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(requireContext())
         dialog.setTitle(R.string.alert_finished)
             .setMessage(R.string.alert_text_finished)
             .setPositiveButton("Ok") { _, _ -> restartAction() }.show()
@@ -125,7 +130,7 @@ class MainActivity : AppCompatActivity() {
             currentCards.add(cardToTurn)
             cardToTurn.setOnClickListener { null }
         } else {
-            Log.wtf("MainActivity.turnCard", "no Icon on Card")
+            Log.wtf("MemoryGameFragment.turnCard", "no Icon on Card")
         }
     }
 
@@ -148,18 +153,7 @@ class MainActivity : AppCompatActivity() {
     private fun clickedOnFirstCard() = first == null && second == null
 
     private fun nextClickAfterMissMatch() = first != null && second != null
-
-    override fun onSaveInstanceState(outState: Bundle?) {
-        outState?.let {
-            it.putInt(SCORE_TAG, score)
-        }
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        restoreScore(savedInstanceState)
-        super.onRestoreInstanceState(savedInstanceState)
-    }
+    
 
     private fun restoreScore(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
@@ -170,14 +164,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateScore(newScore: Int) {
         textView.text = "$newScore"
-    }
-
-    fun onResetButtonClick(view: View) {
-        if (view is Button) {
-            restartGame()
-        } else {
-            Log.wtf("MainActivity.onResetButtonClick", "onResetButtonClick was not on a Button")
-        }
     }
 
     private fun restartGame() {
@@ -198,9 +184,5 @@ class MainActivity : AppCompatActivity() {
         first = null
         second = null
         currentCards.clear()
-    }
-
-    companion object {
-        fun getMainActivityIntent(ctx: Context) = Intent(ctx, MainActivity::class.java)
     }
 }

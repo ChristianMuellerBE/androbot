@@ -9,15 +9,6 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".onboarding.OnBoardingFragment"/>
-        <activity
-                android:name=".game.MainActivity"
-                android:label="@string/title_activity_main"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".onboarding.RegisterFragment">
-        </activity>
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,6 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".game.BoardgameActivity"/>
     </application>
 
 </manifest>

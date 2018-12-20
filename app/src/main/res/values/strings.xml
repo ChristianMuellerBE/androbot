@@ -19,4 +19,8 @@
     <string name="bu_lazy_register">Insert default User</string>
     <string name="error_imput_empty">should not be empty</string>
     <string name="error_password_not_match">passwords don\'t match</string>
+    <string name="menu_game">Game</string>
+    <string name="menu_ranking">Best own</string>
+    <string name="menu_navigation">Navigation</string>
+    <string name="menu_hall_of_fame">Hall of Fame</string>
 </resources>
