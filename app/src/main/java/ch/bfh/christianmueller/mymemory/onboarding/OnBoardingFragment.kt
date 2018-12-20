@@ -3,6 +3,7 @@ package ch.bfh.christianmueller.mymemory.onboarding
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,16 +26,25 @@ class OnBoardingFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_onboarding, container, false)
         callback = requireContext() as? StartActivityActionInterface ?: throw IllegalStateException("context is not StartActivityActionInterface")
         setupButtons(view)
-        reloadLastRegistration()
         return view
     }
 
+    override fun onResume() {
+        Log.i("BUBU", "OnBoardingFragment.onResume")
+        reloadLastRegistration()
+        super.onResume()
+    }
+
     private fun reloadLastRegistration() {
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = activity?.getSharedPreferences(StartActivity.SHARED_PREF_TAG, Context.MODE_PRIVATE) ?: return
         val username = sharedPref.getString(StartActivity.USER_NAME_PREF_TAG, null)
-        username?.let {
+        Log.i("BUBU", "OnBoardingFragment. username: $username")
+        if(username != null){
             loggingButton.isEnabled = true
-            loggingButton.text = "Login as $it"
+            loggingButton.text = "Login as $username"
+        }else{
+            loggingButton.isEnabled = false
+            loggingButton.text = "Login"
         }
     }
 
