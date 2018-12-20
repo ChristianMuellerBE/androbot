@@ -58,6 +58,7 @@ class StartActivity : AppCompatActivity(), StartActivityActionInterface {
     }
 
     companion object {
+        const val SHARED_PREF_TAG: String = "MyMemory"
         const val USER_NAME_PREF_TAG: String = "userName_pref"
         const val PASSWORD_PREF_TAG: String = "password_pref"
     }

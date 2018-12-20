@@ -53,7 +53,7 @@ class RegisterFragment : Fragment() {
     }
 
     private fun saveRegistration() {
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = activity?.getSharedPreferences(StartActivity.SHARED_PREF_TAG, Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putString(StartActivity.USER_NAME_PREF_TAG, userNameEditText.editableText.toString().trim())
             putString(StartActivity.PASSWORD_PREF_TAG, passwordEditText.editableText.toString())

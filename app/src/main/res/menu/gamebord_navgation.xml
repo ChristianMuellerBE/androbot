@@ -12,5 +12,9 @@
             android:id="@+id/menu_hall_of_fame"
             android:title="@string/menu_hall_of_fame"
             android:icon="@drawable/ic_hall_of_fame"/>
+    <item
+            android:id="@+id/menu_logout"
+            android:title="@string/menu_logout"
+            android:icon="@drawable/ic_logout"/>
 
 </menu>

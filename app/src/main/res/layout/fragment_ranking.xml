@@ -5,9 +5,9 @@
              android:layout_height="match_parent"
              tools:context=".game.RankingFragment">
 
-    <TextView
+    <ListView
+            android:id="@+id/lv_ranking"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Ranking Fragment"/>
+            android:layout_height="wrap_content"/>
 
 </FrameLayout>

@@ -14,6 +14,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import ch.bfh.christianmueller.mymemory.R
+import ch.bfh.christianmueller.mymemory.StartActivityActionInterface
+import java.lang.IllegalStateException
 import kotlin.random.Random
 
 
@@ -36,8 +38,11 @@ class MemoryGameFragment : Fragment() {
     private lateinit var bordGame: LinearLayout
     private lateinit var restartButton: Button
 
+    private lateinit var callback: BoardGameActions
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.activity_game, container, false)
+        callback = requireContext() as? BoardGameActions ?: throw IllegalStateException("context is not BoardGameActions")
         textView = view.findViewById(R.id.tv_score)
         bordGame = view.findViewById(R.id.ll_game_bord)
         restartButton = view.findViewById(R.id.bu_restart_game)
@@ -101,6 +106,7 @@ class MemoryGameFragment : Fragment() {
                 Toast.makeText(requireContext(), "It's a Match", Toast.LENGTH_SHORT).show()
                 foundMatches++
                 if (allMatchesFound()) {
+                    callback.saveGameResult(score, cardsOnBoardGame.size)
                     showWinDialog()
                 }
             }
@@ -168,6 +174,7 @@ class MemoryGameFragment : Fragment() {
 
     private fun restartGame() {
         score = 0
+        foundMatches = 0
         updateScore(score)
         clearAllListsAndStates()
         pictures = mutableListOf("🐶", "🐱", "🐻", "🐨", "🐷", "🐸", "🐙")
