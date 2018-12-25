@@ -11,7 +11,11 @@ class GameResultsRepo(appDatabase: AppDatabase){
         return database.gameResultDAO().saveGameResult(gameResult)
     }
 
-    fun findAllGameResults(): List<GameResult>{
-        return database.gameResultDAO().findAllGameResults()
+    fun findOrderedGameResultsForPlayer(playerId: Int): List<GameResult>{
+        return database.gameResultDAO().findOrderedGameResultsForPlayer(playerId)
+    }
+
+    fun findBestResultForPlayer(playerId: Int): GameResult?{
+        return database.gameResultDAO().findBestResultForPlayer(playerId).maxBy { result -> result.date!! }
     }
 }

@@ -36,6 +36,7 @@ class BoardgameActivity : AppCompatActivity(), BoardGameActions {
 
     private fun selectMenuItem(clickedMenuItem: MenuItem): Boolean {
 
+        Log.i("MyMemory", "selectMenuItem: ${clickedMenuItem.title}")
         when (clickedMenuItem.itemId) {
             R.id.menu_game -> gameMenuClicked()
             R.id.menu_ranking -> rankingMenuClicked()
@@ -93,7 +94,7 @@ class BoardgameActivity : AppCompatActivity(), BoardGameActions {
     private fun findOrCreatePlayer(userName: String): Int? {
         val existingPlayer = PlayerRepo(database).findPlayerByName(userName)
         existingPlayer?.let { player: Player ->
-            Log.i("MyMemory", "Found exixting Player: ${player.name}")
+            Log.i("MyMemory", "Found exixting Player: ${player.name}  id: ${player.id}")
             return player.id
         }
         val savedPlayerId = PlayerRepo(database).savePlayer(Player(null, userName))

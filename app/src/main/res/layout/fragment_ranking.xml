@@ -4,6 +4,10 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context=".game.RankingFragment">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="whefhwe"/>
 
     <ListView
             android:id="@+id/lv_ranking"
