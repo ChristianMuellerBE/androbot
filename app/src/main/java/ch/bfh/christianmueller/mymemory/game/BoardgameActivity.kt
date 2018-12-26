@@ -36,10 +36,12 @@ class BoardgameActivity : AppCompatActivity(), BoardGameActions {
 
     private fun selectMenuItem(clickedMenuItem: MenuItem): Boolean {
 
+        Log.i("MyMemory", "selectMenuItem: ${clickedMenuItem.title}")
         when (clickedMenuItem.itemId) {
             R.id.menu_game -> gameMenuClicked()
             R.id.menu_ranking -> rankingMenuClicked()
             R.id.menu_hall_of_fame -> hallOfFameClicked()
+            R.id.menu_settings -> settingsClicked()
             R.id.menu_logout -> logoutClicked()
         }
         return true
@@ -63,6 +65,10 @@ class BoardgameActivity : AppCompatActivity(), BoardGameActions {
 
     private fun rankingMenuClicked() {
         supportFragmentManager.beginTransaction().replace(R.id.fl_game_board, RankingFragment()).commit()
+    }
+
+    private fun settingsClicked() {
+        supportFragmentManager.beginTransaction().replace(R.id.fl_game_board, SettingsFragment()).commit()
     }
 
     private fun gameMenuClicked() {
@@ -93,7 +99,7 @@ class BoardgameActivity : AppCompatActivity(), BoardGameActions {
     private fun findOrCreatePlayer(userName: String): Int? {
         val existingPlayer = PlayerRepo(database).findPlayerByName(userName)
         existingPlayer?.let { player: Player ->
-            Log.i("MyMemory", "Found exixting Player: ${player.name}")
+            Log.i("MyMemory", "Found exixting Player: ${player.name}  id: ${player.id}")
             return player.id
         }
         val savedPlayerId = PlayerRepo(database).savePlayer(Player(null, userName))

@@ -13,9 +13,9 @@ class MyListAdapter(context: Context, @LayoutRes itemLayoutRes: Int, items: List
     ArrayAdapter<MyListItem>(context, itemLayoutRes, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
+        val view = convertView ?: LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false)
         val item = getItem(position)
-        view.findViewById<TextView>(R.id.tv_listitem).text = item.text
+        view.findViewById<TextView>(android.R.id.text1).text = item.text
         return view
     }
 }

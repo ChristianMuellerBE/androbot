@@ -16,7 +16,14 @@ class PlayerRepo(appDatabase: AppDatabase){
         return database.playerDAO().findPlayerByName(name)
     }
 
-    fun nuleAllPlayerrs(){
+    fun findPlayerById(id: Int): Player?{
+        return database.playerDAO().findPlayerByid(id)
+    }
+
+    fun findAllPlayerIds(): List<Int>{
+        return database.playerDAO().findAllPlayerIds()
+    }
+    fun deleteAllPlayerrs(){
         return database.playerDAO().nukePlayers()
     }
 }

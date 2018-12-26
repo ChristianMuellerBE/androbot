@@ -10,8 +10,6 @@
     <string name="register_hint_username">username</string>
     <string name="register_hint_password">password</string>
     <string name="register_hint_password_confirm">confirm password</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bu_take_a_picture">Take a nice Picture</string>
     <string name="content_description_profile_picture">profilePic</string>
@@ -24,4 +22,7 @@
     <string name="menu_navigation">Navigation</string>
     <string name="menu_hall_of_fame">Hall of Fame</string>
     <string name="menu_logout">Logout</string>
+    <string name="tv_ranking_title">Results of: </string>
+    <string name="tv_hall_of_fame_title">Hall of Fame</string>
+    <string name="bu_setting_nuke">Nuke Players</string>
 </resources>
