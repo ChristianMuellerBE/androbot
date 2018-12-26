@@ -41,6 +41,7 @@ class BoardgameActivity : AppCompatActivity(), BoardGameActions {
             R.id.menu_game -> gameMenuClicked()
             R.id.menu_ranking -> rankingMenuClicked()
             R.id.menu_hall_of_fame -> hallOfFameClicked()
+            R.id.menu_settings -> settingsClicked()
             R.id.menu_logout -> logoutClicked()
         }
         return true
@@ -64,6 +65,10 @@ class BoardgameActivity : AppCompatActivity(), BoardGameActions {
 
     private fun rankingMenuClicked() {
         supportFragmentManager.beginTransaction().replace(R.id.fl_game_board, RankingFragment()).commit()
+    }
+
+    private fun settingsClicked() {
+        supportFragmentManager.beginTransaction().replace(R.id.fl_game_board, SettingsFragment()).commit()
     }
 
     private fun gameMenuClicked() {

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.TextView
 
 import ch.bfh.christianmueller.mymemory.R
 import ch.bfh.christianmueller.mymemory.StartActivity
@@ -21,25 +22,26 @@ import java.text.SimpleDateFormat
 
 class RankingFragment : Fragment() {
 
-    private lateinit var listview: ListView
+    private lateinit var listView: ListView
     private lateinit var database: AppDatabase
+    private lateinit var textView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_ranking, container, false)
-        listview = view.findViewById(R.id.lv_ranking)
+        listView = view.findViewById(R.id.lv_ranking)
         database = AppDatabase.build(requireContext().applicationContext)
+        textView = view.findViewById(R.id.tv_ranking_title)
 
-        val list = findOrderedGameResultsForCurrentPlayer()
+        val titleRefix = getString(R.string.tv_ranking_title)
+        val playerName = getPlayerName()
+        textView.text = "$titleRefix $playerName"
+        val list = findOrderedGameResultsForCurrentPlayer(playerName)
         val myListAdapter = MyListAdapter(requireContext(), android.R.layout.simple_list_item_1, list)
-        listview.adapter = myListAdapter
+        listView.adapter = myListAdapter
         return view
     }
 
-    private fun findOrderedGameResultsForCurrentPlayer(): List<MyListItem> {
-        val playerName = requireContext()
-            .getSharedPreferences(StartActivity.SHARED_PREF_TAG, Context.MODE_PRIVATE)
-            .getString(StartActivity.USER_NAME_PREF_TAG, null)
-
+    private fun findOrderedGameResultsForCurrentPlayer(playerName: String?): List<MyListItem> {
         playerName?.let {
             PlayerRepo(database).findPlayerByName(playerName)?.let {  player ->
                 Log.i("MyMemory", "found Player: ${player.name} id: ${player.id}")
@@ -51,6 +53,13 @@ class RankingFragment : Fragment() {
             }
         }
         return createSingleNoRecordsListIte(playerName)
+    }
+
+    private fun getPlayerName(): String? {
+        val playerName = requireContext()
+            .getSharedPreferences(StartActivity.SHARED_PREF_TAG, Context.MODE_PRIVATE)
+            .getString(StartActivity.USER_NAME_PREF_TAG, null)
+        return playerName
     }
 
 
